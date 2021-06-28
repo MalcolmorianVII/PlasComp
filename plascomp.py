@@ -19,8 +19,8 @@ def mauve(plasmid):
     #Housekeeping first
     if not plasmid or len(plasmid) == 1:
         return "Mauve should at least get two fasta files for comparison"
-    
-    system(f'mauve{plasmid}')
+    numb = ''   # of sequences to align
+    system(f'progressiveMauve --output={numb.xmfa} {plasmid}')
 
 if __name__ == "__main__":
     app.run(debug=True)
