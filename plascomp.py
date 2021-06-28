@@ -35,7 +35,13 @@ def blast(plasmid):
     if link:
         print("Accessing BLAST NCBI SERVER")
         ncbi = urllib.request.urllibopen(BLAST_URL).read()
-        
+
+def inctyping():
+    """
+        Querying the plasmid DB to get the incType of the plasmid
+    """
+    
+
 
 
 if __name__ == "__main__":
