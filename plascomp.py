@@ -1,6 +1,8 @@
 from flask import Flask
 from flask.templating import render_template
 from os import system
+import urllib
+from urllib import request
 
 app = Flask(__name__)
 
@@ -8,19 +10,19 @@ app = Flask(__name__)
 def home():
     return render_template('home.html')
 
-def mauve(plasmid):
+def blast(plasmid):
     """
-        Gets the plasmid fasta sequence and performs mauve aligment on them
-        Returns an alignment:In-browser??
+    Gets a plsmid seq & blasts it & returns a description summary of the results in csv format
     """
-    ref = plasmid[-1]
-    to_compare = plasmid[:-1]
+    blast_url = ''
+    blasted = request.urlopen(blast_url)
+    if blasted:
+        navigate_to_ncbi(blast_url)
+    return "There was an error with blast"
 
-    #Housekeeping first
-    if not plasmid or len(plasmid) == 1:
-        return "Mauve should at least get two fasta files for comparison"
-    
-    system(f'mauve{plasmid}')
-
+@app.route('/blastbone')
+def navigate_to_ncbi(url):
+    """Redirects to ncbi after click"""
+    return render_template('blastbone.html',url=url)
 if __name__ == "__main__":
     app.run(debug=True)
