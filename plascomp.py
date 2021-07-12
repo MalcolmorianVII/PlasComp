@@ -8,21 +8,26 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template('home.html')
+    blast_url = 'https://blast.ncbi.nlm.nih.gov/Blast.cgi'
+    inc_url = "C://Users/Belson/WebProj/PlasComp/templates/inctyping.html"
+    return render_template('home.html',url=blast_url,inc_url=inc_url)
 
-def blast(plasmid):
+@app.route("/")
+def blast():
     """
     Gets a plsmid seq & blasts it & returns a description summary of the results in csv format
     """
-    blast_url = ''
+    blast_url = 'https://blast.ncbi.nlm.nih.gov/Blast.cgi'
     blasted = request.urlopen(blast_url)
     if blasted:
         navigate_to_ncbi(blast_url)
     return "There was an error with blast"
 
-@app.route('/blastbone')
+
 def navigate_to_ncbi(url):
     """Redirects to ncbi after click"""
-    return render_template('blastbone.html',url=url)
+    return render_template('home.html',url=url)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
