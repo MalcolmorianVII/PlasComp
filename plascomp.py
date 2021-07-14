@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 from flask.templating import render_template
 from os import system
 import urllib
@@ -6,28 +7,17 @@ from urllib import request
 
 app = Flask(__name__)
 
+# Databasing app
+db = SQLAlchemy(app)
+
+class mobTable(db.Model):
+    __tablename__ = "mobtable"
+
+    acession = db.Column(db.Integer,primary_key=True)
+
 @app.route("/")
 def home():
-    blast_url = 'https://blast.ncbi.nlm.nih.gov/Blast.cgi'
-    inc_url = "C:\\Users\\Belson\\WebProj\\PlasComp\\templates\\inctyping.html"
-    return render_template('home.html',url=blast_url,inc_url=inc_url)
-
-@app.route("/")
-def blast():
-    """
-    Gets a plsmid seq & blasts it & returns a description summary of the results in csv format
-    """
-    blast_url = 'https://blast.ncbi.nlm.nih.gov/Blast.cgi'
-    blasted = request.urlopen(blast_url)
-    if blasted:
-        navigate_to_ncbi(blast_url)
-    return "There was an error with blast"
-
-
-def navigate_to_ncbi(url):
-    """Redirects to ncbi after click"""
-    return render_template('home.html',url=url)
-
+    pass
 
 if __name__ == "__main__":
     app.run(debug=True)
