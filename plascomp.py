@@ -9,7 +9,7 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     blast_url = 'https://blast.ncbi.nlm.nih.gov/Blast.cgi'
-    inc_url = "C://Users/Belson/WebProj/PlasComp/templates/inctyping.html"
+    inc_url = "C:\\Users\\Belson\\WebProj\\PlasComp\\templates\\inctyping.html"
     return render_template('home.html',url=blast_url,inc_url=inc_url)
 
 @app.route("/")
