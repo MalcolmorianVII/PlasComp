@@ -3,7 +3,7 @@
 <head>
 <!-- HTML Codes by Quackit.com -->
 <title>
-PairComp</title>
+Mob-typing</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="plasmid,inC typing,plasmid backbone,mauve,blast,ncbi genbank">
 <meta name="description" content="Web application for performing pairwise comparison of plasmid sequences and typing.">
@@ -14,11 +14,12 @@ p {font-family:Georgia, serif;font-size:14px;font-style:normal;font-weight:norma
 </style>
 </head>
 <body>
-<h1>PairComp Analyzer</h1>
+<h1>MobType Finder</h1>
 <p>This web application can perform the following tasks:</p>
-<p><a href="C:\Users\Belson\WebProj\PlasComp\templates\mauve.html">alignment using Mauve</a></p>
-<!--<p><a href="C:\Users\Belson\WebProj\PlasComp\templates\blastbone.html">Blast the plasmid backbone</a></p>-->
-<p><a href="{{url}}">Blast the plasmid backbone</a></p>
-<p><a href="{{inc_url}}">Find the incType of the plasmid backbone and its similar sequences</a></p>
+<ol>
+    <li>Download the CSV summary results from NCBI </li>
+    <li>Enter the ACCESSION # of an organism and it returns its mob-type</li>
+    <li>If mob-type not found in 2 then it goes ahead to perform mob-typing on the replicon & add it to the database</li>
+</ol>
 </body>
 </html>
