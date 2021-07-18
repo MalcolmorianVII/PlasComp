@@ -1,7 +1,7 @@
 from flask_bootstrap import Bootstrap
 from datetime import datetime
 from operator import index
-from flask import Flask
+from flask import Flask,session
 from flask_sqlalchemy import SQLAlchemy
 from flask.templating import render_template
 import os
@@ -31,19 +31,23 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Databasing app
 db = SQLAlchemy(app)
 
+#Bootstraping 
+
+bootstrap = Bootstrap(app)
+
 #Model definition
 class mobTable(db.Model):
     __tablename__ = "mobtable"
 
-    acession = db.Column(db.Integer,primary_key=True)
+    sample_id = db.Column(db.String(64),primary_key=True)
     rep_type = db.Column(db.String(64),index=True)
-    rep_accession = db.Column(db.Integer)
-    pred_mob = db.Column(db.String(64),index=True)
+    rep_type_accession = db.Column(db.String(64))
+    predicted_mobility = db.Column(db.String(64),index=True)
     organism = db.Column(db.String(64),index=True)
     taxid = db.Column(db.String(64))
 
     def __repr__(self) -> str:
-        return f'<Mob type for {self.organism} is {self.rep_type}'
+        return f'<Mob type for {self.organism} is {self.rep_type}>'
 
 #App configurations for security reasons
 
@@ -57,12 +61,21 @@ def make_shell_context():
 @app.route("/",methods = ['GET','POST'])
 def home():
     form = QueryForm()
+    q = ''
+    #warning = ''
     if form.validate_on_submit():
-        q = mobTable.query.filter_by(qstring=form.search.data).first()
-        if q is None:
-            pass    # If search results are not found what to do
-        
-    return render_template('home.html')
+        #global q
+        q = mobTable.query.filter_by(sample_id=form.search.data).first()
+        #if q is None:
+            #warning = 'organism not found'
+    
+    #session['search'] = q
+    form.search.data = ''
+    return render_template('home.html',form=form,q = q)
+        #if q is None:
+                # If search results are not found what to do
+
+    #return render_template('home.html',q=q)
 
 if __name__ == "__main__":
     app.run(debug=True)
