@@ -1,25 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
-<!-- HTML Codes by Quackit.com -->
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 <title>
-Mob-typing</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="keywords" content="plasmid,inC typing,plasmid backbone,mauve,blast,ncbi genbank">
-<meta name="description" content="Web application for performing pairwise comparison of plasmid sequences and typing.">
-<style>
-body {background-color:#ffffff;background-repeat:no-repeat;background-position:top left;background-attachment:fixed;}
-h1{font-family:Arial, sans-serif;color:#000000;background-color:#ffffff;}
-p {font-family:Georgia, serif;font-size:14px;font-style:normal;font-weight:normal;color:#000000;background-color:#ffffff;}
-</style>
-</head>
-<body>
-<h1>MobType Finder</h1>
-<p>This web application can perform the following tasks:</p>
-<ol>
-    <li>Download the CSV summary results from NCBI </li>
-    <li>Enter the ACCESSION # of an organism and it returns its mob-type</li>
-    <li>If mob-type not found in 2 then it goes ahead to perform mob-typing on the replicon & add it to the database</li>
-</ol>
-</body>
+  Mob-typing</title>
+  
+  <h1>MobType Finder</h1>
+
+{% block content %}
+{{ wtf.quick_form(form) }}
+
+{% if q == None %}
+<b>Organism not found in database</b>
+{% else %}
+  <table id="data" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Accession</th>
+        <th>rep_type</th>
+        <th>rep_type_accession</th>
+        <th>predicted_mobility</th>
+        <th>Organism</th>
+        <th>taxid</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+          <td>{{ q.sample_id }}</td>
+          <td>{{ q.rep_type }}</td>
+          <td>{{ q.rep_type_accession }}</td>
+          <td>{{ q.predicted_mobility }}</td>
+          <td>{{ q.organism }}</td>
+          <td>{{ q.taxid }}</td>
+        </tr>
+
+    </tbody>
+  </table>
+{% endif %}
+{% endblock %}
+
+
+<!--<form>
+    <input name="Search" type="text">
+    <input name="submit" type="Submit">
+</form>
+-->
 </html>
