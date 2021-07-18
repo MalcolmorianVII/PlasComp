@@ -72,10 +72,5 @@ def home():
     #session['search'] = q
     form.search.data = ''
     return render_template('home.html',form=form,q = q)
-        #if q is None:
-                # If search results are not found what to do
-
-    #return render_template('home.html',q=q)
-
 if __name__ == "__main__":
     app.run(debug=True)
